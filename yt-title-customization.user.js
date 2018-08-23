@@ -1,6 +1,6 @@
 // ==UserScript==
-// @name         YT Customization
-// @version      1.0
+// @name		 YT Customization
+// @version	     1.0
 // @description  adds view count, channel name, and publsh date
 // @description  to the 'title' in the fullscreen youtube player
 // @author       Alexander Houston
@@ -9,42 +9,42 @@
 // ==/UserScript==
 
 function updateTitle() {
-    'use strict';
+	'use strict';
 
-    let title_new = [];
+	let title_new = [];
 
-    let title_original = document.getElementsByClassName('ytp-title-link').length ?
+	let title_original = document.getElementsByClassName('ytp-title-link').length ?
 		//handle no title
-        document.getElementsByClassName('ytp-title-link')[0].innerText :
-        '<GM ERROR: NO TITLE>';
+		document.getElementsByClassName('ytp-title-link')[0].innerText :
+		'<GM ERROR: NO TITLE>';
 
-    let channel_name = document.getElementById('owner-container').children.length ?
-        //handle no uploader
+	let channel_name = document.getElementById('owner-container').children.length ?
+		//handle no uploader
 		document.getElementById('owner-container').children[0].children[0].innerHTML :
-        '<GM ERROR: NO UPLOADER>';
+		'<GM ERROR: NO UPLOADER>';
 
-    let publish_date = document.getElementsByClassName('date').length ?
-        //handle no date
+	let publish_date = document.getElementsByClassName('date').length ?
+		//handle no date
 		document.getElementsByClassName('date')[0].innerText :
-        '<GM ERROR: NO DATE>';
+		'<GM ERROR: NO DATE>';
 
-    let view_count = document.getElementsByClassName('view-count').length ?
-        //handle no views
+	let view_count = document.getElementsByClassName('view-count').length ?
+		//handle no views
 		document.getElementsByClassName('view-count')[0].innerHTML :
-        'Views Hidden';
+		'Views Hidden';
 
-    //concat original title + extras
-    title_new.push(title_original, channel_name, publish_date, view_count);
-    //console.log(title_new);
+	//concat original title + extras
+	title_new.push(title_original, channel_name, publish_date, view_count);
+	//console.log(title_new);
 
 	//update title data
-    document.getElementsByClassName('ytp-title-link')[0].innerText = title_new.join('\n');
+	document.getElementsByClassName('ytp-title-link')[0].innerText = title_new.join('\n');
 }
 
 //run after player loads
 let interval = setInterval(() => {
-    if (document.getElementsByClassName('date').length) {
-        clearInterval(interval);
-        updateTitle();
-    }
+	if (document.getElementsByClassName('date').length) {
+		clearInterval(interval);
+		updateTitle();
+	}
 }, 1000);
